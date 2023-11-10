@@ -4,6 +4,7 @@ import ProductShow from './Components/ProductShow'
 import { Route, Routes } from 'react-router-dom'
 import ProductDetail from './Components/ProductDetail'
 import NavBar from './Components/Nav'
+import Cart from './Components/Cart'
 
 function App() {
       const CartObject = localStorage.getItem("my-product") || "{}"
@@ -29,6 +30,7 @@ function App() {
         <Routes>
           <Route index element={<ProductShow />} ></Route>
           <Route path='/productdetail/:id' element= {<ProductDetail onAddToCart = {handeCart} />} ></Route>
+          <Route path='cart' element={<Cart/>}></Route>
         </Routes>
     </>
   )

@@ -1,5 +1,6 @@
 import React from 'react';
 import {BsCart3} from "react-icons/bs"
+import { Link } from 'react-router-dom';
 
 function NavBar ({cartCount}) {
     return ( 
@@ -12,9 +13,13 @@ function NavBar ({cartCount}) {
                 <div 
                 className=' flex cursor-pointer '
                 >
+                <Link
+                to={"cart"}
+                >
                 <BsCart3 
                 className=' text-4xl text-orange-600 '
                 />
+                </Link>
                 <span
                 className='  text-3xl font-bold '
                 >
