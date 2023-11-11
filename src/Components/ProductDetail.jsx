@@ -3,6 +3,7 @@ import { ProductsId } from './Api';
 import { Link, useParams } from 'react-router-dom';
 import {VscLoading} from "react-icons/vsc"
 import { TiPlus , TiMinus } from "react-icons/ti"
+import NotFound from './NotFound';
 
 
 function ProductDetail({onAddToCart}) {
@@ -19,6 +20,7 @@ function ProductDetail({onAddToCart}) {
         })
     }, [id]);
 
+
     if(loading){
         return <div
         className='h-80 bg-indigo-100 flex items-center justify-center w-full'
@@ -29,9 +31,16 @@ function ProductDetail({onAddToCart}) {
         </div>
     }
 
+    if(!product){
+        return <NotFound />
+    } 
+
+
     if(count < 0 ){
         setCount(0)
     }
+
+   
   
 
     return ( 

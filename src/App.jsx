@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom'
 import ProductDetail from './Components/ProductDetail'
 import NavBar from './Components/Nav'
 import Cart from './Components/Cart'
+import NotFound from './Components/NotFound'
 
 function App() {
       const CartObject = localStorage.getItem("my-product") || "{}"
@@ -31,6 +32,7 @@ function App() {
           <Route index element={<ProductShow />} ></Route>
           <Route path='/productdetail/:id' element= {<ProductDetail onAddToCart = {handeCart} />} ></Route>
           <Route path='cart' element={<Cart/>}></Route>
+          <Route path='*' element={<NotFound /> }></Route>
         </Routes>
     </>
   )
