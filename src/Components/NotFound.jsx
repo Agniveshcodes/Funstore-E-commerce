@@ -1,5 +1,6 @@
 import React from 'react';
 import NotFoundImage from "./NotFound.jpeg"
+import { Link } from 'react-router-dom';
 
 function NotFound() {
     return ( 

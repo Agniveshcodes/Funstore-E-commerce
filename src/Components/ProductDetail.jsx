@@ -8,7 +8,7 @@ import NotFound from './NotFound';
 
 function ProductDetail({onAddToCart}) {
 
-    const[product,setProduct] = useState("")
+    const[product,setProduct] = useState()
     const[loading,setLoading] = useState(true)
     const[count,setCount] = useState(1)
     const id = +useParams().id
@@ -34,6 +34,7 @@ function ProductDetail({onAddToCart}) {
     if(!product){
         return <NotFound />
     } 
+
 
 
     if(count < 0 ){
@@ -74,9 +75,11 @@ function ProductDetail({onAddToCart}) {
                 </h1>
 
                 <h1
-                className=' text-2xl font-semibold'
+                className=' text-2xl font-semibold '
                 >
+                    category: <span className=' text-orange-400'>
                     {product.category}
+                    </span>
                 
                 </h1>
 
@@ -93,6 +96,7 @@ function ProductDetail({onAddToCart}) {
                     value={count}
                     onChange={(e)=>{
                         setCount(+(e.target.value))
+                       
                     }}
                     />
 
@@ -104,6 +108,7 @@ function ProductDetail({onAddToCart}) {
                         className=' text-2xl text-orange-400 '
                         onClick={()=>{
                             setCount(count -1 )
+                            
                         }}
 
                         />
@@ -111,6 +116,7 @@ function ProductDetail({onAddToCart}) {
                     className=' border-2 text-xl px-2 py-1 hover:bg-gray-400'
                     onClick={()=>{
                         onAddToCart( id , count)
+                        setCount(1)
                     }}
                     >
                         add to cart 
@@ -139,7 +145,8 @@ function ProductDetail({onAddToCart}) {
                 className=' text-3xl text-orange-400 '
                 to={"/productdetail/" + (id-1)}
                 onClick={()=>{
-                    setCount(1)
+                    
+                    setLoading(true)
                 }}
                 >
                  previous
@@ -149,7 +156,8 @@ function ProductDetail({onAddToCart}) {
                 className=' text-3xl text-orange-400 '
                 to={"/productdetail/" + (id+1)}
                 onClick={()=>{
-                    setCount(1)
+                    
+                    setLoading(true)
                 }}
                 >
                  next
