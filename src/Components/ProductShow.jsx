@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from 'react';
+import React, { useState , useEffect, useMemo } from 'react';
 import { ProductInfo } from './Api';
 import Produts from './Products';
 import {VscLoading} from "react-icons/vsc"
@@ -18,9 +18,10 @@ function ProductShow () {
         })
     }, []);
 
-    data = product.filter(function(items){
-        return items.title.toLowerCase().indexOf(search.toLowerCase()) != -1 
-    })
+    data =  product.filter(function(items){
+            return items.title.toLowerCase().indexOf(search.toLowerCase()) != -1 
+        })
+    
 
     if( sort == "price"){
         data.sort(function(x,y){

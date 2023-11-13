@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import ProductCard from './ProductCard';
 
 
@@ -14,4 +14,4 @@ function Produts({products}) {
      );
 }
 
-export default Produts;
+export default memo(Produts);
