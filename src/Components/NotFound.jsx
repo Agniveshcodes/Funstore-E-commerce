@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import NotFoundImage from "./NotFound.jpeg"
 import { Link } from 'react-router-dom';
 
@@ -23,4 +23,4 @@ function NotFound() {
      );
 }
 
-export default NotFound;
+export default memo(NotFound);

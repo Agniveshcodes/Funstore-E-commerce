@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import {BsCart3} from "react-icons/bs"
 import { Link } from 'react-router-dom';
 
@@ -35,4 +35,4 @@ function NavBar ({cartCount}) {
      );
 }
 
-export default NavBar ;
+export default memo(NavBar) ;
