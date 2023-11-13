@@ -13,26 +13,35 @@ function ProductShow () {
     useEffect(() => {
         ProductInfo().then(function(items){
             setProduct(items)
-            console.log(items)
             setLoading(false)
         })
     }, []);
 
-    data =  product.filter(function(items){
-            return items.title.toLowerCase().indexOf(search.toLowerCase()) != -1 
-        })
-    
+ 
+        data =  product.filter(function(items){
+                return items.title.toLowerCase().indexOf(search.toLowerCase()) != -1 
+            })
+        
+   
+    useMemo(()=>{
+        if( sort == "price"){
+            data.sort(function(x,y){
+                console.log("sort chala ")
+                return x.price - y.price 
+                
+            })
+        }
+        if( sort == "title"){
+            data.sort(function(x,y){
+                console.log("sort phir chala")
+                return x.title < y.title ? -1 : 1 
+            })
+        }
+    },[sort])
 
-    if( sort == "price"){
-        data.sort(function(x,y){
-            return x.price - y.price 
-        })
-    }
-    if( sort == "title"){
-        data.sort(function(x,y){
-            return x.title < y.title ? -1 : 1 
-        })
-    }
+    
+        
+    
    
     if(loading){
         return <div
