@@ -15,6 +15,10 @@ function App() {
       function handeCart (productId , productCount ){
         const oldCount = cart[productId] || 0 
         const newCount = {...cart , [productId] : oldCount + productCount}
+        updateCart(newCount)
+      }
+
+      function updateCart (newCount) {
         setCart(newCount)
         const CartString = JSON.stringify(newCount)
         localStorage.setItem("my-product" , CartString)
@@ -31,7 +35,7 @@ function App() {
         <Routes>
           <Route index element={<ProductShow />} ></Route>
           <Route path='/productdetail/:id' element= {<ProductDetail onAddToCart = {handeCart} />} ></Route>
-          <Route path='cart' element={<Cart/>}></Route>
+          <Route path='cart' element={<Cart Cart={cart} updateCart={updateCart} />}></Route>
           <Route path='*' element={<NotFound /> }></Route>
         </Routes>
     </>

@@ -12,3 +12,4 @@ export function ProductsId ( id ) {
       return response.data
    })
 }
+
