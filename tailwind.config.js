@@ -9,6 +9,11 @@ export default {
       width : {
         200 : "60rem",
         150 : "50rem",
+        100 : "400px" ,
+        180 : "930Px",
+      },
+      height : {
+        15 : "60px"
       }
     },
   },
