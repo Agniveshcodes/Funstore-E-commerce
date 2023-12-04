@@ -20,10 +20,11 @@ function ProductDetail({onAddToCart}) {
         })
     }, [id]);
 
+    
 
     if(loading){
         return <div
-        className='h-80 bg-indigo-100 flex items-center justify-center w-full'
+        className='h-80 bg-indigo-100 flex items-center justify-center w-200 mx-auto'
         >
             <VscLoading 
             className=' text-4xl font-bold text-orange-600 animate-spin '
@@ -31,10 +32,10 @@ function ProductDetail({onAddToCart}) {
         </div>
     }
 
+     
     if(!product){
         return <NotFound />
-    } 
-
+    }
 
 
     if(count < 0 ){
@@ -46,14 +47,7 @@ function ProductDetail({onAddToCart}) {
 
     return ( 
         <>
-            <div>
-                    <Link
-                    className=' text-3xl text-orange-400 px-8'
-                    to={"/"}
-                    >
-                        Back
-                    </Link>
-                </div>
+            
 
             <div
             className=' w-200 mx-auto bg-indigo-100 p-5 flex items-center justify-center flex-col '
