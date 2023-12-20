@@ -1,48 +1,47 @@
-import React, { useState , useEffect, useMemo } from 'react';
+import React, { useState , useEffect } from 'react';
 import { ProductInfo } from './Api';
 import Produts from './Products';
 import {VscLoading} from "react-icons/vsc"
+import Nomatch from './Nomatch';
+import { range } from 'lodash';
+import { Link, useSearchParams  } from 'react-router-dom';
 
 function ProductShow () {
-    const[product,setProduct] = useState([])
-    const[search , setSearch ] = useState('')
-    const[sort,setSort] = useState("default")
+    const[productdata ,setProductData ] = useState({})
     const[loading,setLoading] = useState(true)
-    let data = []
+    
+    const [ searchParams , setSearchParams ] = useSearchParams()
+
+    const params = Object.fromEntries([...searchParams])
+
+    let { search , sort , page } = params;
+
+     search = search || "" ;
+     sort = sort || "default" ;
+     page = +page || 1 ;
+
+  
+
 
     useEffect(() => {
-        ProductInfo().then(function(items){
-            setProduct(items)
+
+        let sortBy;
+        let sortType;
+
+        if( sort == "title"){
+            sortBy = "title"
+        }else if (sort === "price" ){
+            sortBy = "price"
+            sortType = "desc"
+        }
+
+
+        ProductInfo( sortBy , search , page , sortType ).then(function(items){
+            setProductData(items)
             setLoading(false)
         })
-    }, []);
+    }, [ sort , page , search ]);
 
- 
-        data =  product.filter(function(items){
-                return items.title.toLowerCase().indexOf(search.toLowerCase()) != -1 
-            })
-        
-   
-    useMemo(()=>{
-        if( sort == "price"){
-            data.sort(function(x,y){
-                console.log("sort chala ")
-                return x.price - y.price 
-                
-            })
-        }
-        if( sort == "title"){
-            data.sort(function(x,y){
-                console.log("sort phir chala")
-                return x.title < y.title ? -1 : 1 
-            })
-        }
-    },[sort])
-
-    
-        
-    
-   
     if(loading){
         return <div
         className='h-80 bg-indigo-100 flex items-center justify-center w-full'
@@ -67,7 +66,7 @@ function ProductShow () {
                     type="text" 
                     value={search}
                     onChange={(e)=>{
-                        setSearch(e.target.value)
+                        setSearchParams(  { ...params , search:e.target.value ,  page : 1 } , { replace : false  })
                     }}
                     />
 
@@ -75,7 +74,8 @@ function ProductShow () {
                     className="text-xl border-2 cursor-pointer border-black px-2 py-1 rounded-md"
                     value={sort}
                     onChange={(e)=>{
-                        setSort(e.target.value)
+                        setSearchParams({ ...params , sort:e.target.value   } ,
+                        {replace : false })
                     }}
                     >
                         <option value="title"> sort by title</option>
@@ -88,13 +88,27 @@ function ProductShow () {
                 <div
                 className='grid grid-cols-3 w-150 mx-auto '
                 >
-                <Produts products={data} />
+                { productdata.data.length > 0 && <Produts products={productdata.data} />}
+                { productdata.data.length == 0 && <Nomatch /> }
                 </div>
 
-
+                    <div
+                    className=' flex gap-2 my-2 p-2 w-fit  items-center font-bold bg-white'
+                    
+                    >
+                        { range( 1 , productdata.meta.last_page + 1).map(
+                          function  (pageNo)  {
+                             return   <Link 
+                                key={pageNo}
+                                to={"?" + new URLSearchParams({...params , page : pageNo})}
+                                className={' p-2 m-1 rounded-md ' + ( page === pageNo ? "bg-orange-100" : "bg-orange-600 ")}
+                                >
+                                {pageNo}
+                                </Link>
+                            }
+                        )}                
+                    </div>
                 </div>
-               
-            
         </>
      );
     

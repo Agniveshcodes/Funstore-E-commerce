@@ -14,6 +14,9 @@ export default {
       },
       height : {
         15 : "60px"
+      },
+      fontSize : {
+        10 : "800px "
       }
     },
   },
