@@ -45,8 +45,8 @@ function CartList ({ products , cart , updateCart}) {
               <div
               className=''
               >
-               {products.map(function(p){
-               return  <CartRow products={p} quantity={localCart[p.id]} onCartQuantityChange={handleChange} CartDelete={handleRemove} />
+               {products.map(function(p , index ){
+               return  <CartRow key={index} products={p} quantity={localCart[p.id]} onCartQuantityChange={handleChange} CartDelete={handleRemove} />
             })}
               </div>
 
